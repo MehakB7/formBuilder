@@ -9,12 +9,37 @@ const options : NextAuthOptions ={
               username: { label: "Username", type: "text", placeholder: "jsmith" },
               password: { label: "Password", type: "password" }
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
               console.log("credentials", credentials);
-              return null
-            }
-          })
-    ]
+              const response =  await fetch("https://jsonplaceholder.typicode.com/users/1");
+              const user = await  response.json();
+              console.log({user});
+              return user||null;
+            },
+          }),      
+    ],
+    // callbacks:{
+    //   async jwt({ token, account, profile }) {
+    //     // Persist the OAuth access_token and or the user id to the token right after signin
+    //     console.log({token, account, profile});
+    //     return token
+    //   },
+
+    //   async session(req){
+    //     console.log("ression", req);
+    //     return req.session;
+
+    //   }
+    // },
+
+    pages:{
+       signIn:"/login"
+    },
+
+    secret:"Mehak"
+
+
+    
 
 }
 
