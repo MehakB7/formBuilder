@@ -1,14 +1,15 @@
+"use client"
 import React from 'react'
-import { getServerSession } from 'next-auth'
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
-export const Nav = async() => {
-    const session = await getServerSession();
-    console.log("session is", session);
-
+export const Nav = () => {
+    const {data:session} = useSession();
+    console.log({session});
+    
   return (
     <div>
-        {session ? <>You have a sessin</>: <Link href= "/api/auth/signin"> login</Link>}
+        {session ? <>You have a sessin</>: <Link href= "/login"> login</Link>}
     </div>
   )
 }
